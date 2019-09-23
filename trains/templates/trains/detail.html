@@ -1,0 +1,22 @@
+{% extends "boot4.html" %}
+
+{% block title %}Поезд{% endblock %}
+
+{% block content %}
+    <h1>Поезд</h1>
+    <div class="row">
+        <div class="col-md-6">
+            <p>Номер поезда: {{object.name}} </p>
+            <p>Откуда: {{object.from_city}} </p>
+            <p>Куда: {{object.to_city}} </p>
+            <p>Время в пути: {{object.travel_time}} </p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <a href='{% url "train:home" %}'>
+                <button type="button" class="btn btn-light">Назад к списку</button>
+            </a>
+        </div>
+    </div>    
+{% endblock %}

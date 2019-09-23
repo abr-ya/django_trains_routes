@@ -21,5 +21,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('cities/', include(('cities.urls', 'city'))), #похоже, здесь задается пространство имён 'city'
                                                     #используется в boot при построении url
+	path('trains/', include(('trains.urls', 'train'))),
     path('', home_view, name='home'),
 ]

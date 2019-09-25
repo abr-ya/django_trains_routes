@@ -3,8 +3,8 @@ from trains.models import Train
 
 class Route(models.Model):
     name = models.CharField(max_length=100, unique=True, verbose_name='Название маршрута')
-    from_city = models.CharField(max_length=100, unique=True, verbose_name='Откуда')
-    to_city = models.CharField(max_length=100, unique=True, verbose_name='Куда')
+    from_city = models.CharField(max_length=100, verbose_name='Откуда')
+    to_city = models.CharField(max_length=100, verbose_name='Куда')
     #across_cities = models.ManyToManyField(Train, blank=True, verbose_name='Через города') #было
     trains = models.ManyToManyField(Train, blank=True, verbose_name='Поезда') #стало
     travel_time = models.IntegerField(verbose_name='Время в пути')

@@ -34,12 +34,13 @@ def get_graph():
         graph[city] = tmp
     return graph
 
-# это, кажется, старая и не используется
+# это главная страница - на ней форма поиска
 def home(request):
     form = RouteForm()
     return render(request, 'routes/home.html', {'form': form})
 
 # поиск маршрута(ов) из города в город
+# вывод результатов - /find/, в случае ошибок - на главной странице
 def find_routes(request):
     if request.method == "POST":
         form = RouteForm(request.POST or None)
@@ -128,7 +129,10 @@ def find_routes(request):
         form = RouteForm()
         return render(request, 'routes/home.html', {'form': form})
 
-# сохранение маршрута
+# сохранение одного маршрута из результатов
+# работает по адресу add_route
+# сначала отрабатывает GET, выводится input для названия
+# потом POST и происходит запись
 def add_route(request):
     if request.method == 'POST':
         # здесь сохраняем данные
@@ -143,8 +147,8 @@ def add_route(request):
             trains = data['trains'].split(' ')
             trains = [int(x) for(x) in trains if x.isalnum()]
             qs = Train.objects.filter(id__in = trains)
-            route = Route(name = name, from_city = from_city,
-                    to_city = to_city, travel_time = travel_time)
+            route = Route(name=name, from_city=from_city,
+                    to_city=to_city, travel_time=travel_time)
             route.save() # сохраняем без поездов
             # trains - массив, поэтому попробую обойти его, а не qs
             # не получилось - делаю как в курсе
@@ -152,6 +156,11 @@ def add_route(request):
                 #route.trains.add(train)
                 route.trains.add(train.id)
             messages.success(request, 'Маршрут успешно сохранён!')
+            return redirect('/')
+        else:
+            # форма не валидна
+            print (form)
+            messages.error(request, 'Форма не прошла валидацию!')
             return redirect('/')
     elif request.method == 'GET':
         # сюда попадает даже если GET пустой, поэтому добавил if data - по сути, надо было делать как в уроке!

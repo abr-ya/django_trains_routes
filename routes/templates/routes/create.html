@@ -1,0 +1,22 @@
+{% extends "boot4.html" %}
+
+{% block title %}Сохранение маршрута{% endblock %}
+
+{% block content %}
+    <h1>Сохранение маршрута</h1>
+    <div class="row mx-auto">
+        <div class="col-md-6">
+            <form action="" method="post"> {% csrf_token %}
+                {{form.as_p}}
+                <p>Маршрут из г. {{from_city}} в г. {{to_city}} продолжительностью {{travel_time}}</p>
+                <p>Маршрут состоит из:</p>
+                {% for dsc in desc %}
+                    <p>{{dsc}}</p>
+                {% endfor %}
+                <input type="submit" value="Сохранить" class='btn btn-success'>
+            </form>              
+        </div>
+    </div>
+    
+
+{% endblock %}

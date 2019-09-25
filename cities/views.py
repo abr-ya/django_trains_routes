@@ -9,7 +9,7 @@ from .forms import CityForm
 
 def home(request):
     cities = City.objects.all() #получить все записи
-    paginator = Paginator(cities, 2)
+    paginator = Paginator(cities, 5)
     page = request.GET.get('page')
     cities = paginator.get_page(page)
     return render(request, 'cities/home.html', {'objects_list': cities})

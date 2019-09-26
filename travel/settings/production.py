@@ -24,13 +24,13 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__fil
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '6pfc%ja8oy28&57@gj-rd3a!^+rj*&03z2py=q(^zt$^^yn^0)'
-# SECRET_KEY = os.environ.get('SECRET_KEY')
+# SECRET_KEY = '6pfc%ja8oy28&57@gj-rd3a!^+rj*&03z2py=q(^zt$^^yn^0)'
+SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['django-trains-routes.herokuapp.com']
 
 
 # Application definition

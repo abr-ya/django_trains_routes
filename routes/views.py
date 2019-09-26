@@ -4,6 +4,8 @@ from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
 from django.views.generic.edit import DeleteView
 from django.urls import reverse_lazy
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from trains.models import Train
 from .forms import RouteForm, RouteModelForm
 from .models import Route
@@ -34,6 +36,7 @@ def get_graph():
         graph[city] = tmp
     return graph
 
+# @login_required(login_url='/login/')
 # это главная страница - на ней форма поиска
 def home(request):
     form = RouteForm()
@@ -212,7 +215,8 @@ class RouteListlView(ListView):
     context_object_name = 'objects_list'
     template_name = 'routes/list.html'
 
-class RouteDeleteView(DeleteView):
+class RouteDeleteView(LoginRequiredMixin, DeleteView):
     model = Route
     template_name = 'routes/delete.html'
     success_url = reverse_lazy('home') # вернуться при успехе
+    login_url = '/login/'

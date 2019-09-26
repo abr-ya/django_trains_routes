@@ -18,9 +18,12 @@ from django.urls import path, include
 #from .views import home_view
 from routes.views import home, find_routes, add_route
 from routes.views import RouteListlView, RouteDetailView, RouteDeleteView
+from .views import login_view, logout_view
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('login/', login_view, name='login'),
+    path('logout/', logout_view, name='logout'),
     path('cities/', include(('cities.urls', 'city'))), #похоже, здесь задается пространство имён 'city'
                                                     #используется в boot при построении url
 	path('trains/', include(('trains.urls', 'train'))),
